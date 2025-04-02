@@ -83,7 +83,7 @@ function Page() {
             Recover password
           </Link>
 
-          <Button disabled={loading}>{loading ? "Loading..." : "Sign in"}</Button>
+          <Button>{loading ? "Loading..." : "Sign in"}</Button>
         </form>
       </div>
     </div>

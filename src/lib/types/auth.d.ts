@@ -5,6 +5,7 @@ declare type User = {
   email: string;
   phone: string;
   role: string;
+  token: string;
   isVerified: boolean;
 } & DatabaseFields;
 

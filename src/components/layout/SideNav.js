@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import Logout from "../common/Logout";
+import Logout from "../../components/common/Logout";
 import Link from "next/link";
 import { useState } from "react";
 import { useSelectedLayoutSegment } from "next/navigation";
@@ -12,7 +12,7 @@ function SideNav() {
   const { data } = useSession();
   // console.log('session from server', data);
   const toggleMenu = () => {
-    setIsOpen(!isOpen);
+    setIsOpen((prev) => !prev);
   };
   if (!data) return null;
   return (

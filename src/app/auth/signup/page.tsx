@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import Input from '@/src/_components/common/Input';
-import { useState } from 'react';
+import Link from "next/link";
+import Input from "@/src/components/common/Input";
+import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import Button from '@/src/_components/common/Button';
-import { handleSignup } from '@/src/_lib/actions/action';
+import Button from "@/src/components/common/Button";
+import { handleSignup } from "@/src/_lib/actions/action";
 
 type Inputs = {
   firstName: string;
@@ -16,7 +16,7 @@ type Inputs = {
 };
 
 function SignupPage() {
-  const [error, setError] = useState<String>('');
+  const [error, setError] = useState<String>("");
   const {
     register,
     handleSubmit,
@@ -25,7 +25,7 @@ function SignupPage() {
 
   const onSubmit: SubmitHandler<Inputs> = async (formData: Inputs) => {
     if (formData.password !== formData.repassword) {
-      setError('Passwords do not match');
+      setError("Passwords do not match");
       return;
     }
     try {
@@ -43,22 +43,22 @@ function SignupPage() {
         {/* First Name */}
         <Input
           type="text"
-          {...register('firstName', {
+          {...register("firstName", {
             required: {
               value: true,
-              message: 'Please enter your First Name',
+              message: "Please enter your First Name",
             },
             maxLength: {
               value: 20,
-              message: 'First Name cannot exceed 20 characters',
+              message: "First Name cannot exceed 20 characters",
             },
             minLength: {
               value: 2,
-              message: 'First Name must be at least 2 characters',
+              message: "First Name must be at least 2 characters",
             },
             pattern: {
               value: /^[a-zA-Z]+$/,
-              message: 'First Name should contain only alphabets',
+              message: "First Name should contain only alphabets",
             },
           })}
           placeholder="First Name"
@@ -68,22 +68,22 @@ function SignupPage() {
         {/* Last Name */}
         <Input
           type="text"
-          {...register('lastName', {
+          {...register("lastName", {
             required: {
               value: true,
-              message: 'Please enter your Last Name',
+              message: "Please enter your Last Name",
             },
             maxLength: {
               value: 20,
-              message: 'Last Name cannot exceed 20 characters',
+              message: "Last Name cannot exceed 20 characters",
             },
             minLength: {
               value: 2,
-              message: 'Last Name must be at least 2 characters',
+              message: "Last Name must be at least 2 characters",
             },
             pattern: {
               value: /^[a-zA-Z]+$/,
-              message: 'Last Name should contain only alphabets',
+              message: "Last Name should contain only alphabets",
             },
           })}
           placeholder="Last Name"
@@ -93,14 +93,14 @@ function SignupPage() {
         {/* Email */}
         <Input
           type="email"
-          {...register('email', {
+          {...register("email", {
             required: {
               value: true,
-              message: 'Please enter your Email',
+              message: "Please enter your Email",
             },
             pattern: {
               value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-              message: 'Please enter a valid email address',
+              message: "Please enter a valid email address",
             },
           })}
           placeholder="Email"
@@ -110,14 +110,14 @@ function SignupPage() {
         {/* Password */}
         <Input
           type="password"
-          {...register('password', {
+          {...register("password", {
             required: {
               value: true,
-              message: 'Please enter a Password',
+              message: "Please enter a Password",
             },
             minLength: {
               value: 6,
-              message: 'Password must be at least 6 characters',
+              message: "Password must be at least 6 characters",
             },
           })}
           placeholder="Password"
@@ -127,10 +127,10 @@ function SignupPage() {
         {/* Confirm Password */}
         <Input
           type="password"
-          {...register('repassword', {
+          {...register("repassword", {
             required: {
               value: true,
-              message: 'Please confirm your Password',
+              message: "Please confirm your Password",
             },
           })}
           placeholder="Confirm Password"

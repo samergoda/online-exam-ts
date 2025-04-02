@@ -1,23 +1,17 @@
-import { createContext } from "react"
+import { createContext } from "react";
 
-function ExamStatus( {children}) {
-    const ExamState = createContext({
-        showPopup: false,
-        questions: [],
-        currentQuestion: 0,
-        selectedAnswers: { answers: [], time: 0 },
-        results: null,
-        showResult: false,
-        status: 'not_started',
-      })
-    
-    return (
-        <ExamState.Provider>
+function ExamStatus({ children }) {
+  const ExamState = createContext({
+    showPopup: false,
+    questions: [],
+    currentQuestion: 0,
+    selectedAnswers: { answers: [], time: 0 },
+    results: null,
+    showResult: false,
+    status: "not_started",
+  });
 
- {children}
-        </ExamState.Provider>
-    )
+  return <ExamState.Provider>{children}</ExamState.Provider>;
 }
 
-export default ExamStatus
-
+export default ExamStatus;

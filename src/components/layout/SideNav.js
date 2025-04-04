@@ -4,17 +4,17 @@ import Logout from "../../components/common/Logout";
 import Link from "next/link";
 import { useState } from "react";
 import { useSelectedLayoutSegment } from "next/navigation";
-import { useSession } from "next-auth/react";
+// import { useSession } from "next-auth/react";
 import FinalLogo from "@/public/images/FinalLogo.png";
 function SideNav() {
   const [isOpen, setIsOpen] = useState(false);
   const segment = useSelectedLayoutSegment();
-  const { data } = useSession();
+  // const { data } = useSession();
   // console.log('session from server', data);
   const toggleMenu = () => {
     setIsOpen((prev) => !prev);
   };
-  if (!data) return null;
+  // if (!data) return null;
   return (
     <>
       {/* Mobile Toggle Button */}

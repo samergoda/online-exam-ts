@@ -4,6 +4,7 @@ import NextAuthProvider from "../components/providers/components/next-auth-provi
 // import { getServerSession } from "next-auth";
 // import { OPTIONS } from "../auth";
 import SessionWrapper from "../components/layout/SessionWrapper";
+import RootProviders from "../components/providers";
 
 export const metadata = {
   title: "Online exam",
@@ -20,9 +21,11 @@ export default async function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
       <body>
-        <NextAuthProvider>
-          <SessionWrapper>{children}</SessionWrapper>
-        </NextAuthProvider>
+        <RootProviders>
+          <NextAuthProvider>
+            <SessionWrapper>{children}</SessionWrapper>
+          </NextAuthProvider>
+        </RootProviders>
       </body>
     </html>
   );

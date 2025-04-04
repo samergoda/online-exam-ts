@@ -12,7 +12,10 @@ export default function SessionWrapper({ children }: { children: React.ReactNode
       {session?.user && <SideNav />}
       <div className="w-full">
         {session?.user && <Search />}
+        <div className="">
+
         {children}
+        </div>
       </div>
     </main>
   );

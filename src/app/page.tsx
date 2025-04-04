@@ -6,7 +6,7 @@ export default async function Home(): Promise<JSX.Element> {
     <>
       <div className="w-full gap-8 bg-white p-3 flex mb-5 rounded-2xl">
         <div className="image-container">
-          <Image src={Frame} alt="image" />
+          <Image src={Frame} alt="image" priority />
         </div>
         <div className="w-[60%]">
           <h3 className="text-[#4461F2]">Samer Goda</h3>
@@ -62,7 +62,7 @@ export default async function Home(): Promise<JSX.Element> {
           </div>
         </div>
       </div>
-      <div className="bg-white flex p-3 rounded-2xl">
+      <div className="bg-white p-3 rounded-2xl  h-screen">
         <Subjects />
       </div>
     </>

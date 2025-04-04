@@ -1,105 +1,40 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import Image from 'next/image';
-import { useSession } from 'next-auth/react';
-import InfiniteScroll from 'react-infinite-scroll-component';
-import { getCategoriesServer } from '@/src/_lib/actions/action';
+import { useEffect, useState } from "react";
+import Image from "next/image";
+import useSubject from "@/src/hooks/use-subject";
 
-
-interface Subject {
-  _id: string;
-  icon: string | null;
-  name: string;
-}
-
-function Subjects(): JSX.Element {
+function Subjects() {
   const [subjects, setSubjects] = useState<Subject[]>([]);
-  const [page, setPage] = useState<number>(1);
-  const [hasMore, setHasMore] = useState<boolean>(true);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const { data: session } = useSession();
-
-
-
-  const getCategories = async (pageNumber: number): Promise<void> => {
-    if (isLoading) return;
-  
-    setIsLoading(true);
-  
-    try {
-      const result = await getCategoriesServer(pageNumber);
-  
-      if (!result.subjects.length) {
-        setHasMore(false);
-        return;
-      }
-  
-      setSubjects((prevSubjects) => {
-        const uniqueSubjects = new Set(
-          [...prevSubjects, ...result.subjects].map((s) => JSON.stringify(s))
-        );
-        return Array.from(uniqueSubjects).map((s) => JSON.parse(s));
-      });
-  
-      setPage(pageNumber + 1);
-    } catch (error) {
-      console.error('Error fetching categories:', error);
-      setHasMore(false);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-  
-
-  const loadMore = (): void => {
-    if (!isLoading && hasMore) {
-      getCategories(page);
-    }
-  };
+  const { payload, error } = useSubject();
 
   useEffect(() => {
-    if ( subjects.length === 0) {
-      getCategories(1);
+    if (payload?.subjects) {
+      setSubjects(payload.subjects);
     }
-  }, [ session, subjects.length]);
+  }, [payload]);
 
-  useEffect(() => {
-    return () => {
-      setSubjects([]);
-      setPage(1);
-      setHasMore(true);
-      setIsLoading(false);
-    };
-  }, []);
+  if (error) return <div>Error: {error.toString()}</div>;
 
   return (
-    <InfiniteScroll
-      dataLength={subjects.length}
-      next={loadMore}
-      scrollThreshold={0.1}
-      hasMore={hasMore}
-      loader={<h4>Loading...</h4>}
-    >
-      <div className='subjects flex flex-wrap gap-3 '>
-        {subjects.map((subject) => (
-          <div key={subject._id} className='subject-card w-full md:w-[31%] relative'>
-            <Image
-              src={subject.icon || ''}
-              alt={subject.name}
-              width={500}
-              height={300}
-            />
+    <div className="flex flex-wrap gap-96 w-full">
+      {subjects.map((subject: Subject) => (
+        <div key={subject._id} className="relative w-full rounded-lg shadow-lg overflow-hidden">
+          <Image
+            src={subject.icon}
+            alt="Background"
+            width={27280} // ✅ Set fixed width
+            height={72280} // ✅ Set fixed height
+            className="object-cover"
+          />
 
-            <h3 className=' bg-[#1935CA66] backdrop-blur-lg p-3 rounded-lg absolute bottom-3 w-11/12 m-auto -right-[-4%]  text-white'>
-            <span>
-            {subject.name}
-            </span>
-            </h3>
+          {/* ✅ Text Overlay */}
+          <div className=" w-full bg-[#1935CA66] backdrop-blur-lg p-2">
+            <h3 className="text-black text-center font-medium truncate">{subject.name}</h3>
           </div>
-        ))}
-      </div>
-    </InfiniteScroll>
+        </div>
+      ))}
+    </div>
   );
 }
 

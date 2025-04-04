@@ -1,21 +1,17 @@
-"use client";
-
-import { useSession } from "next-auth/react";
+// import { useSession } from "next-auth/react";
 import SideNav from "./SideNav";
-import { Search } from "lucide-react";
+import Search from "../common/Search";
+import { getServerSession } from "next-auth";
 
-export default function SessionWrapper({ children }: { children: React.ReactNode }) {
-  const { data: session } = useSession();
+export default async function SessionWrapper({ children }: { children: React.ReactNode }) {
+  const session = await getServerSession();
 
   return (
     <main className="flex gap-5 p-8 bg-[#FBF9F9]">
-      {session?.user && <SideNav />}
+      {session && <SideNav />}
       <div className="w-full">
-        {session?.user && <Search />}
-        <div className="">
-
+        {session && <Search />}
         {children}
-        </div>
       </div>
     </main>
   );

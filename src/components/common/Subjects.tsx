@@ -28,11 +28,11 @@ function Subjects() {
               className=" object-cover transition-transform duration-300 group-hover:scale-110"
             />
 
-            <div className="absolute inset-0 flex items-end">
+            <div className="absolute inset-0 flex items-end rounded">
               <div className="w-full px-4 pb-4">
                 <div
-                  className="bg-gradient-to-t from-[#332e87] to-[#8181C3] 
-                opacity-90 rounded-lg 
+                  className="bg-gradient-to-t from-[#332e87] to-[#8181C3]  rounded
+                opacity-90
                 w-full
                 p-3
                 text-white 

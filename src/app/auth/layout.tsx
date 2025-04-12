@@ -3,7 +3,7 @@ import ProvidersButtons from "../../components/common/ProvidersButtons";
 import Link from "next/link";
 import bro from "@/public/images/bro.png";
 
-function layout({ children }) {
+function layout({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex gap-[132px]  justify-between items-center">
       <div className=" bg-[#F0F4FC] rounded-[0_100px_100px_0] shadow-[0_5px_100px_0_#0000001A] p-[80px] ">

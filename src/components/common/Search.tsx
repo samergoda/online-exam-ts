@@ -3,7 +3,7 @@
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 
-function Search(): JSX.Element | null {
+function Search() {
   const { data } = useSession();
 
   if (!data) return null;

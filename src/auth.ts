@@ -16,14 +16,15 @@ export const OPTIONS: NextAuthOptions = {
   },
   callbacks: {
     async jwt({ token, user }) {
+      console.log(token, user);
       if (user) {
-        token.user = user; // Ensure user object includes token
-        token.token = (user as User).token; // Store access token separately using type assertion
+        token.user = user.user; // Ensure user object includes token
+        token.token = user.token; // Store access token separately
       }
       return token;
     },
     async session({ session, token }) {
-      session.user = token.user as User; // Attach user data to session
+      session.user = token.user; // Attach user data to session
       return session;
     },
   },
@@ -35,7 +36,7 @@ export const OPTIONS: NextAuthOptions = {
         password: {},
       },
       async authorize(credentials) {
-        if (!credentials) {
+        if (!credentials || !credentials?.email || !credentials?.password) {
           throw new Error("No credentials provided");
         }
 
@@ -51,9 +52,9 @@ export const OPTIONS: NextAuthOptions = {
 
           // Check if response is ok before trying to parse JSON
           if (!response.ok) {
-            const errorData = await response.text();
+            const errorData = await response.json();
             console.error("API Error Response:", errorData);
-            throw new Error(`HTTP error! status: ${response.status}`);
+            throw new Error(errorData.message || "Failed to authenticate");
           }
 
           const data = await response.json();
@@ -67,21 +68,7 @@ export const OPTIONS: NextAuthOptions = {
             httpOnly: true,
           });
 
-          return {
-            id: data.user._id,
-            name: `${data.user.firstName} ${data.user.lastName}`,
-            email: data.user.email,
-            image: null,
-            message: data.message,
-            token: data.token,
-            username: data.user.username,
-            firstName: data.user.firstName,
-            lastName: data.user.lastName,
-            phone: data.user.phone,
-            role: data.user.role,
-            isVerified: data.user.isVerified,
-            passwordChangedAt: data.user.passwordChangedAt,
-          };
+          return data; // Return the user object from the API response
         } catch (error) {
           console.error("Authentication error:", error);
           throw new Error(error instanceof Error ? error.message : "Failed to authenticate");

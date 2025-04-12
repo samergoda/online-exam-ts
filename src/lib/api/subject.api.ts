@@ -24,7 +24,7 @@ export async function getSubjects() {
       throw new Error(errorData.message || "Failed to fetch categories");
     }
     const result = await response.json();
-    console.log("result", result);
+    // console.log("result", result);
     return result;
   } catch (error) {
     console.error("Error fetching categories:", error);

@@ -37,7 +37,8 @@ function Page() {
       setErrorMessage(result.error);
       setLoading(false);
     } else {
-      router.push("/");
+      // router.push("/");
+      window.location.href = "/";
     }
   };
 

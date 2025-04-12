@@ -1,10 +1,12 @@
-import { metadata } from "./../../app/layout";
-declare type ErrorMessage = {
+declare type ApiResponse<T> = {
   message: string;
+  metadata: metadata;
+} & T;
+
+declare type ErrorMessage = {
   code: number;
 };
 declare type SuccessMessage = {
-  message: string;
   token: string;
 };
 

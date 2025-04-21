@@ -1,11 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import Input from "@/src/components/common/Input";
+import Input from "@/components/common/Input";
 import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import Button from "@/src/components/common/Button";
-import { handleSignup } from "@/src/_lib/actions/action";
+import Button from "@/components/common/Button";
+import { handleSignup } from "@/_lib/actions/action";
 
 type Inputs = {
   firstName: string;

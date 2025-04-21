@@ -1,7 +1,5 @@
-// import { getServerSession } from "next-auth";
-// import { OPTIONS } from "./../api/auth/[...nextauth]/route";
+import getAllExams from "@/lib/api/exams.api";
 import ExamCard from "./_component/ExamCard";
-import getAllExams from "@/src/lib/api/exams.api";
 
 async function page() {
   const exams = await getAllExams();

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Subjects from "../components/common/Subjects";
-import Frame from "@/public/images/Frame.png";
+import Frame from "/public/images/Frame.png";
 import { FaFlag } from "react-icons/fa";
 import { IoIosTime } from "react-icons/io";
 import { FaCheckCircle } from "react-icons/fa";

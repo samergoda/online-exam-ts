@@ -1,7 +1,7 @@
 "use client";
 
-import Button from "@/src/components/common/Button";
-import Input from "@/src/components/common/Input";
+import Button from "@/components/common/Button";
+import Input from "@/components/common/Input";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";

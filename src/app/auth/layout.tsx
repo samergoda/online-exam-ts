@@ -1,7 +1,7 @@
 import Image from "next/image";
 import ProvidersButtons from "../../components/common/ProvidersButtons";
 import Link from "next/link";
-import bro from "@/public/images/bro.png";
+// import bro from "@/public/images/bro.png";
 
 function layout({ children }: { children: React.ReactNode }) {
   return (
@@ -12,7 +12,7 @@ function layout({ children }: { children: React.ReactNode }) {
           <span className="font-bold text-5xl leading-[75px] text-[#122D9C]">Elevate</span>
         </h1>
         <p className="font-normal leading-[40px] text-[18px]">Quidem autem voluptatibus qui quaerat aspernatur architecto natus</p>
-        <Image alt="bro" width="600" height="700" src={bro} />
+        {/* <Image alt="bro" width="600" height="700" src={bro} /> */}
       </div>
       <div className="max-w-[50%] m-auto">
         <nav className="mb-28">

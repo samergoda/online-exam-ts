@@ -5,7 +5,7 @@ import { useSession, signOut } from "next-auth/react";
 import { useState } from "react";
 
 // Import the server-side logout handler
-import { logoutServerAction } from "@/src/_lib/actions/action";
+import { logoutServerAction } from "@/_lib/actions/action";
 
 export default function Logout() {
   const { status } = useSession();
@@ -30,9 +30,9 @@ export default function Logout() {
       }
 
       await signOut({ callbackUrl: "/auth/login" });
-    } catch (err: any) {
-      setError(err.message);
-      console.error("Logout error:", err.message);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : String(err));
+      console.error("Logout error:", err);
     } finally {
       setIsLoading(false);
     }

@@ -1,13 +1,6 @@
-"use client";
-
-import { useSession } from "next-auth/react";
 import Link from "next/link";
 
 function Search() {
-  const { data } = useSession();
-
-  if (!data) return null;
-
   return (
     <div>
       <div className="flex gap-3 mb-5">

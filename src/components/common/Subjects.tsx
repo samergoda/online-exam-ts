@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import useSubject from "@/src/hooks/use-subject";
+import useSubject from "@/hooks/use-subject";
 
 function Subjects() {
   const [subjects, setSubjects] = useState<Subject[]>([]);

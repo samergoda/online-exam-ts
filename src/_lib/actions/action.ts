@@ -1,6 +1,6 @@
 "use server";
 
-import { SESSION_TOKEN } from "@/src/lib/constants/api.constanst";
+import { SESSION_TOKEN } from "@/lib/constants/api.constanst";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 

@@ -1,10 +1,11 @@
 import "./globals.css";
 import { ReactNode } from "react";
-import NextAuthProvider from "../components/providers/components/next-auth-provider";
+// import NextAuthProvider from "../components/providers/components/next-auth-provider";
 // import { getServerSession } from "next-auth";
 // import { OPTIONS } from "../auth";
 import SessionWrapper from "../components/layout/SessionWrapper";
-import RootProviders from "../components/providers";
+import RootProviders from "@/components/providers";
+// import RootProviders from "../components/providers";
 
 export const metadata = {
   title: "Online exam",
@@ -22,9 +23,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
     <html lang="en">
       <body>
         <RootProviders>
-          <NextAuthProvider>
-            <SessionWrapper>{children}</SessionWrapper>
-          </NextAuthProvider>
+          <SessionWrapper>{children}</SessionWrapper>
         </RootProviders>
       </body>
     </html>

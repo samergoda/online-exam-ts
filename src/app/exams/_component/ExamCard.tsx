@@ -7,9 +7,16 @@ import Instraction from "./Instructions.js";
 
 import DisplayResult from "./DisplayResult";
 import CurrentQuestion from "./CurrentQuestion";
-import ShowWrongAnswers from "./ShowWrongAnswers.jsx";
+// import ShowWrongAnswers from "./ShowWrongAnswers.jsx";
+import Popup from "@/components/common/Popup";
 
-function ExamCard({ title, numberOfQuestions, duration, id, token }) {
+interface ExamCardProps {
+  title: string;
+  numberOfQuestions: number;
+  duration: number;
+  id: number;
+}
+function ExamCard({ title, numberOfQuestions, duration }: ExamCardProps) {
   const [examState, setExamState] = useState({
     showPopup: false,
     questions: [],
@@ -21,55 +28,30 @@ function ExamCard({ title, numberOfQuestions, duration, id, token }) {
   });
 
   // Fetch questions when starting the exam
-  async function fetchQuestions(id) {
-    try {
-      const response = await fetch(`https://exam.elevateegy.com/api/v1/questions?exam=${id}`, {
-        method: "GET",
-        headers: { token },
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to fetch questions");
-      }
-
-      const { questions } = await response.json();
-      setExamState((prev) => ({
-        ...prev,
-        questions,
-        status: "in_progress",
-      }));
-    } catch (error) {
-      console.error("Error fetching questions:", error);
-      setExamState((prev) => ({
-        ...prev,
-        status: "error",
-      }));
-    }
-  }
 
   // Handle answer selection
-  function handleAnswerSelect(questionId, key, type) {
-    setExamState((prev) => {
-      const updated = { ...prev };
-      updated.selectedAnswers.answers = updated.selectedAnswers.answers || [];
+  // function handleAnswerSelect(questionId, key, type) {
+  //   setExamState((prev) => {
+  //     const updated = { ...prev };
+  //     updated.selectedAnswers.answers = updated.selectedAnswers.answers || [];
 
-      if (type === "single_choice") {
-        updated.selectedAnswers.answers = updated.selectedAnswers.answers.filter((ans) => ans.questionId !== questionId);
-        updated.selectedAnswers.answers.push({ questionId, correct: key });
-      } else if (type === "multiple_choice") {
-        const answerIndex = updated.selectedAnswers.answers.findIndex((ans) => ans.questionId === questionId);
-        if (answerIndex > -1) {
-          const currentAnswers = updated.selectedAnswers.answers[answerIndex].correct || [];
-          updated.selectedAnswers.answers[answerIndex].correct = currentAnswers.includes(key)
-            ? currentAnswers.filter((val) => val !== key)
-            : [...currentAnswers, key];
-        } else {
-          updated.selectedAnswers.answers.push({ questionId, correct: [key] });
-        }
-      }
-      return updated;
-    });
-  }
+  //     if (type === "single_choice") {
+  //       updated.selectedAnswers.answers = updated.selectedAnswers.answers.filter((ans) => ans.questionId !== questionId);
+  //       updated.selectedAnswers.answers.push({ questionId, correct: key });
+  //     } else if (type === "multiple_choice") {
+  //       const answerIndex = updated.selectedAnswers.answers.findIndex((ans) => ans.questionId === questionId);
+  //       if (answerIndex > -1) {
+  //         const currentAnswers = updated.selectedAnswers.answers[answerIndex].correct || [];
+  //         updated.selectedAnswers.answers[answerIndex].correct = currentAnswers.includes(key)
+  //           ? currentAnswers.filter((val) => val !== key)
+  //           : [...currentAnswers, key];
+  //       } else {
+  //         updated.selectedAnswers.answers.push({ questionId, correct: [key] });
+  //       }
+  //     }
+  //     return updated;
+  //   });
+  // }
 
   // Submit answers
   async function handleSubmitExam() {
@@ -80,7 +62,6 @@ function ExamCard({ title, numberOfQuestions, duration, id, token }) {
       const response = await fetch("https://exam.elevateegy.com/api/v1/questions/check", {
         method: "POST",
         headers: {
-          token: token,
           "Content-Type": "application/json",
         },
         body: JSON.stringify(examState.selectedAnswers),
@@ -135,7 +116,6 @@ function ExamCard({ title, numberOfQuestions, duration, id, token }) {
 
   // Start exam
   function handleStartExam() {
-    fetchQuestions(id);
     setExamState((prev) => ({
       ...prev,
       showPopup: true,
@@ -166,9 +146,9 @@ function ExamCard({ title, numberOfQuestions, duration, id, token }) {
         </div>
       </li>
       {/* Exam Popup */}
-      /*
+
       {examState.showPopup && (
-        <Popup token={token} id={id} setShowPopup={(show) => setExamState((prev) => ({ ...prev, showPopup: show }))}>
+        <Popup setShowPopup={(show) => setExamState((prev) => ({ ...prev, showPopup: show }))}>
           <div className="bg-white w-[500px] absolute top-[50%] left-[50%] translate-y-[-50%] translate-x-[-50%] p-4 rounded-[20px]">
             {/* Instructions or Exam Flow */}
             {examState.status === "not_started" || examState.questions.length === 0 ? (
@@ -185,9 +165,9 @@ function ExamCard({ title, numberOfQuestions, duration, id, token }) {
                   </>
                 ) : examState.results && examState.showResult ? (
                   <div className="flex gap-5">
-                    {examState.results.WrongQuestions.map((wrongQ, index) => (
+                    {/* {examState.results?.WrongQuestions.map((wrongQ, index) => (
                       <ShowWrongAnswers key={index} wrongQ={wrongQ} index={index} examState={examState} />
-                    ))}
+                    ))} */}
                   </div>
                 ) : null}
               </div>
@@ -264,7 +244,6 @@ function ExamCard({ title, numberOfQuestions, duration, id, token }) {
           </div>
         </Popup>
       )}
-      */
     </>
   );
 }

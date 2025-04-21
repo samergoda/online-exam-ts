@@ -1,13 +1,10 @@
-declare type ApiResponse<T> = {
+declare type ErrorResponse = {
   message: string;
-  metadata: metadata;
-} & T;
-
-declare type ErrorMessage = {
   code: number;
 };
-declare type SuccessMessage = {
-  token: string;
+declare type SuccessfulResponse = {
+  message: string;
+  metadata: metadata;
 };
 
 declare type DatabaseFields = {
@@ -21,4 +18,4 @@ declare type metadata = {
   limit: number;
 };
 
-declare type ApiResponse = SuccessMessage | ErrorMessage;
+declare type APIResponse<T> = SuccessfulResponse<T> | ErrorResponse;

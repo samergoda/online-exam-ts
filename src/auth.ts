@@ -1,11 +1,10 @@
-import { JSON_HEADER } from "./lib/constants/api.constanst";
+import { JSON_HEADER, SESSION_TOKEN } from "./lib/constants/api.constanst";
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import FacebookProvider from "next-auth/providers/facebook";
 import TwitterProvider from "next-auth/providers/twitter";
 import { cookies } from "next/headers";
-import { SESSION_TOKEN } from "@/src/lib/constants/api.constanst";
 
 export const OPTIONS: NextAuthOptions = {
   pages: {

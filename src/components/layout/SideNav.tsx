@@ -1,11 +1,11 @@
 "use client";
 
-import Image from "next/image";
+// import Image from "next/image";
 import Logout from "../common/Logout";
 import Link from "next/link";
 import { useState } from "react";
 import { useSelectedLayoutSegment } from "next/navigation";
-import FinalLogo from "@/public/images/FinalLogo.png";
+// import FinalLogo from "./../../../public/images/final-logo.png";
 
 function SideNav() {
   const segment = useSelectedLayoutSegment();
@@ -30,7 +30,7 @@ function SideNav() {
           md:translate-x-0 md:relative md:bg-transparent
         `}>
         <div className="p-4 w-max">
-          <Image src={FinalLogo} width={200} height={200} alt="logo" />
+          {/* <Image src={FinalLogo} width={200} height={200} alt="logo" /> */}
 
           <ul className="mt-8 space-y-2">
             {/* Dashboard */}

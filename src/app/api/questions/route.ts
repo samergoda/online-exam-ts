@@ -7,16 +7,16 @@ export async function GET(req: NextRequest) {
   if (!token) {
     return NextResponse.json({ error: "Unauthorized route handler" }, { status: 401 });
   }
-
+  console.log("token.token", token.token);
   try {
-    const response = await fetch(process.env.API + `questions?exam=${req.nextUrl.searchParams.get("exam")}`, {
-      headers: { Authorization: `Bearer ${token.token}` },
+    const response = await fetch(process.env.API + `/questions?exam=${req.nextUrl.searchParams.get("exam")}`, {
+      headers: { token: token.token },
       cache: "no-store",
     });
 
     // Convert response to JSON before returning
-    const data: APIResponse<ExamResponse> = await response.json();
-
+    const data: APIResponse<QuestionsResponse> = await response.json();
+    // console.log("dataaaaaa", data);
     if ("error" in data) {
       throw new Error(data.error as string);
     }

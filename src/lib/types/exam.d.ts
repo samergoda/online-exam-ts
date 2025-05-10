@@ -3,6 +3,7 @@ declare interface ExamResponse {
   metadata: Metadata;
   exams: Exam[];
 }
+
 declare type Exam = {
   _id: string;
   title: string;

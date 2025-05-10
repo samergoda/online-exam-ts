@@ -14,7 +14,7 @@ export default async function Home(): Promise<JSX.Element> {
   }
 
   const { user } = session;
-  console.log("data", user);
+  // console.log("data", user);
   return (
     <>
       <div className="w-full gap-8 bg-white p-3 flex mb-5 rounded-2xl">

@@ -16,7 +16,7 @@ type Inputs = {
 };
 
 function SignupPage() {
-  const [error, setError] = useState<String>("");
+  const [error, setError] = useState<string>("");
   const {
     register,
     handleSubmit,
@@ -29,9 +29,15 @@ function SignupPage() {
       return;
     }
     try {
-      await handleSignup(formData);
-    } catch (err: any) {
-      setError(err.message);
+      const formDataObj = new FormData();
+      formDataObj.append("firstName", formData.firstName);
+      formDataObj.append("lastName", formData.lastName);
+      formDataObj.append("email", formData.email);
+      formDataObj.append("password", formData.password);
+      await handleSignup(formDataObj);
+    } catch (err) {
+      void err;
+      setError("An error occurred");
     }
   };
 

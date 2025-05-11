@@ -1,10 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-// import Popup from "@/src/_components/common/Popup";
 import { CountdownTimer } from "nextjs-countdown-timer";
-import Instraction from "./Instructions.js";
-
+import Instraction from "./Instructions";
+import ShowWrongAnswers from "./ShowWrongAnswers";
 import DisplayResult from "./DisplayResult";
 import CurrentQuestion from "./CurrentQuestion";
 // import ShowWrongAnswers from "./ShowWrongAnswers.jsx";
@@ -30,7 +29,7 @@ interface ExamState {
   questions: [];
   currentQuestion: number;
   selectedAnswers: { answers: []; time: number };
-  results: { total: string; correct: string; wrong: number } | null;
+  results: { total: string; correct: string; wrong: number; WrongQuestions: [] } | null;
   showResult: boolean;
   status: string;
 }
@@ -43,7 +42,7 @@ function ExamCard({ title, numberOfQuestions, duration, id }: ExamCardProps) {
     questions: [],
     currentQuestion: 0,
     selectedAnswers: { answers: [], time: 0 },
-    results: { total: "", correct: "", wrong: 0 },
+    results: { total: "", correct: "", wrong: 0, WrongQuestions: [] },
     showResult: false,
     status: "not_started",
   });
@@ -199,9 +198,9 @@ function ExamCard({ title, numberOfQuestions, duration, id }: ExamCardProps) {
                     </>
                   ) : examState.results && examState.showResult ? (
                     <div className="flex gap-5">
-                      {/* {examState.results?.WrongQuestions.map((wrongQ, index) => (
+                      {examState.results?.WrongQuestions.map((wrongQ, index) => (
                         <ShowWrongAnswers key={index} wrongQ={wrongQ} index={index} examState={examState} />
-                      ))} */}
+                      ))}
                     </div>
                   ) : null}
                 </div>

@@ -1,4 +1,4 @@
-export default function Instraction({ handleStartExam }) {
+export default function Instraction({ handleStartExam }: { handleStartExam: () => void }) {
   return (
     <>
       <h3>Exam Instructions</h3>

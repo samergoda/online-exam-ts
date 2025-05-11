@@ -24,7 +24,7 @@ declare type ExamState = {
       answer: string;
     }>;
   }>;
-  results: { total: string; correct: string; wrong: number } | null;
+  results: { total: string; correct: string; wrong: number; WrongQuestions: [] } | null;
   currentQuestion: number;
   selectedAnswers: {
     answers: Array<{

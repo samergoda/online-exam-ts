@@ -4,7 +4,7 @@ interface ExamState {
   questions: [];
   currentQuestion: number;
   selectedAnswers: { answers: []; time: number };
-  results: { total: string; correct: string; wrong: number } | null;
+  results: { total: string; correct: string; wrong: number; WrongQuestions: [] } | null;
   showResult: boolean;
   status: string;
 }

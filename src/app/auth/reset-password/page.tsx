@@ -1,11 +1,9 @@
 "use client";
-import { handleResetPassword } from "@/src/_lib/actions/action";
-import Input from "@/src/components/common/Input";
-import Button from "@/src/components/common/Button";
+import Button from "@/components/common/Button";
+import Input from "@/components/common/Input";
+import { handleResetPassword } from "@/lib/actions/auth/reset-password.action";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-
-// import { experimental_useFormStatus as useFormStatus } from 'react';
 
 type Inputs = {
   oldPassword: string;
@@ -14,17 +12,30 @@ type Inputs = {
 };
 
 function ResetPasswordPage() {
-  const [error, setError] = useState<String>("");
+  const [error] = useState("");
+
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: {},
   } = useForm<Inputs>();
+
+  // Create an intermediate function to convert form data
+  const onSubmit = async (data: Inputs) => {
+    // Convert the form data to FormData
+    const formData = new FormData();
+    formData.append("oldPassword", data.oldPassword);
+    formData.append("password", data.password);
+    formData.append("repassword", data.repassword);
+
+    // Call the server action with FormData
+    return handleResetPassword(formData);
+  };
 
   return (
     <div>
       <h2 className="font-bold text-[25px] mb-[31px]">Reset Password</h2>
-      <form onSubmit={handleSubmit(handleResetPassword)} method="post" className="flex flex-col gap-4">
+      <form onSubmit={handleSubmit(onSubmit)} method="post" className="flex flex-col gap-4">
         <Input
           type="password"
           {...register("oldPassword", {

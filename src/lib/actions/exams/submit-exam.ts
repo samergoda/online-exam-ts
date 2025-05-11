@@ -1,3 +1,4 @@
+"use server";
 import getToken from "../../utils/getToken";
 
 // Submit answers

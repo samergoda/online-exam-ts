@@ -8,7 +8,7 @@ import DisplayResult from "./DisplayResult";
 import CurrentQuestion from "./CurrentQuestion";
 // import ShowWrongAnswers from "./ShowWrongAnswers.jsx";
 import Popup from "@/components/common/Popup";
-import { useQuestions } from "@/hooks/use-questions";
+import { useQuestions, useSubmitExam } from "@/hooks/use-questions";
 
 interface ExamCardProps {
   title: string;
@@ -30,6 +30,8 @@ function ExamCard({ title, numberOfQuestions, duration, id }: ExamCardProps) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [fetchQuestions, setFetchQuestions] = useState(true);
   const { data, isLoading } = useQuestions(id, fetchQuestions);
+  // Move the hook to the component level
+  const { submitExam } = useSubmitExam();
   const [examState, setExamState] = useState<ExamState>({
     showPopup: false,
     questions: [],
@@ -40,66 +42,27 @@ function ExamCard({ title, numberOfQuestions, duration, id }: ExamCardProps) {
     status: "not_started",
   });
 
-  // Fetch questions when starting the exam
-
-  // Handle answer selection
-  // function handleAnswerSelect(questionId, key, type) {
-  //   setExamState((prev) => {
-  //     const updated = { ...prev };
-  //     updated.selectedAnswers.answers = updated.selectedAnswers.answers || [];
-
-  //     if (type === "single_choice") {
-  //       updated.selectedAnswers.answers = updated.selectedAnswers.answers.filter((ans) => ans.questionId !== questionId);
-  //       updated.selectedAnswers.answers.push({ questionId, correct: key });
-  //     } else if (type === "multiple_choice") {
-  //       const answerIndex = updated.selectedAnswers.answers.findIndex((ans) => ans.questionId === questionId);
-  //       if (answerIndex > -1) {
-  //         const currentAnswers = updated.selectedAnswers.answers[answerIndex].correct || [];
-  //         updated.selectedAnswers.answers[answerIndex].correct = currentAnswers.includes(key)
-  //           ? currentAnswers.filter((val) => val !== key)
-  //           : [...currentAnswers, key];
-  //       } else {
-  //         updated.selectedAnswers.answers.push({ questionId, correct: [key] });
-  //       }
-  //     }
-  //     return updated;
-  //   });
-  // }
-
   // Submit answers
   async function handleSubmitExam() {
     // Prevent multiple submissions
     if (examState.status === "completed") return;
-    console.log("examState.selectedAnswers", examState.selectedAnswers);
-    try {
-      const response = await fetch("https://exam.elevateegy.com/api/v1/questions/check", {
-        method: "POST",
-        headers: {
-          token:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZWMxMmVhNTU1NGIzMjg5MTI3M2Y5ZiIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzQ2ODg0NTUzfQ.s3VV0XWfNkooDrAKytGDq81QIRYwGdaFlm2-Ri03zis",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(examState.selectedAnswers),
-      });
 
-      if (!response.ok) {
-        throw new Error("Failed to submit answers");
-      }
-
-      const results = await response.json();
-      console.log(results);
-      setExamState((prev) => ({
-        ...prev,
-        results,
-        status: "completed",
-      }));
-    } catch (error) {
-      console.error("Error submitting answers:", error);
-      setExamState((prev) => ({
-        ...prev,
-        status: "error",
-      }));
-    }
+    submitExam.mutate(examState.selectedAnswers, {
+      onSuccess: (results) => {
+        setExamState((prev) => ({
+          ...prev,
+          results,
+          status: "completed",
+        }));
+      },
+      onError: (error) => {
+        console.error("Error submitting answers:", error);
+        setExamState((prev) => ({
+          ...prev,
+          status: "error",
+        }));
+      },
+    });
   }
 
   // Handle timer ending
@@ -136,6 +99,7 @@ function ExamCard({ title, numberOfQuestions, duration, id }: ExamCardProps) {
       showPopup: true,
     }));
   }
+
   useEffect(() => {
     if (!isLoading && data && fetchQuestions) {
       console.log("data", data);
@@ -183,21 +147,30 @@ function ExamCard({ title, numberOfQuestions, duration, id }: ExamCardProps) {
                 </>
               ) : examState.status === "completed" || examState.status === "timeout" ? (
                 // Results Display
-                <div>
+                <div className="h-[500px] overflow-y-scroll">
                   <h3>your score</h3>
                   {examState.results && !examState.showResult ? (
                     <>
                       <DisplayResult examState={examState} setExamState={setExamState} />
                     </>
                   ) : examState.results && examState.showResult ? (
-                    <div className="flex gap-5">
+                    <div className="flex gap-5 flex-wrap h-[500]">
                       {examState.results?.WrongQuestions.map((wrongQ, index) => (
                         <ShowWrongAnswers key={index} wrongQ={wrongQ} index={index} examState={examState} />
                       ))}
                     </div>
                   ) : null}
+
+                  {/* Add close button for completed or timeout states */}
+                  <div className="mt-4 text-center">
+                    <button
+                      onClick={() => setExamState((prev) => ({ ...prev, showPopup: false }))}
+                      className="px-6 py-2 rounded-[20px] bg-[#4461F2] text-white">
+                      Close
+                    </button>
+                  </div>
                 </div>
-              ) : (
+              ) : examState.status !== "completed" && examState.status !== "timeout" ? (
                 // Active Exam
                 <>
                   <div className="flex justify-between">
@@ -244,6 +217,10 @@ function ExamCard({ title, numberOfQuestions, duration, id }: ExamCardProps) {
                   {/* Current Question */}
                   <CurrentQuestion setExamState={(value) => setExamState(value as typeof examState)} examState={examState} />
                 </>
+              ) : (
+                <div className="flex justify-center items-center py-10">
+                  <div className="loader border-4 border-blue-500 border-t-transparent w-10 h-10 rounded-full animate-spin" />
+                </div>
               )}
 
               {/* Navigation Buttons */}

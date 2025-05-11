@@ -16,7 +16,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(({ type = "text", placeho
   const isPasswordField = type === "password";
 
   return (
-    <div className="relative w-[410px]">
+    <div className="relative w-full md:w-[410px]">
       <input
         ref={ref}
         {...props}
@@ -25,7 +25,11 @@ const Input = forwardRef<HTMLInputElement, InputProps>(({ type = "text", placeho
         placeholder={placeholder}
       />
       {isPasswordField && (
-        <button type="button" onClick={togglePasswordVisibility} className="" aria-label="Toggle password visibility">
+        <button
+          type="button"
+          onClick={togglePasswordVisibility}
+          className="absolute right-4 top-1/2 -translate-y-1/2 text-xl"
+          aria-label="Toggle password visibility">
           {isPasswordVisible ? "🙈" : "👁️"}
         </button>
       )}

@@ -11,7 +11,9 @@ export default function Error({ statusCode }: { statusCode?: number }) {
           : "Something went wrong during your exam session. Please try again or contact support."}
       </p>
       <Link href="/">
-        <a className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">Go to Home</a>
+        <Link href="/" className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+          Go to Home
+        </Link>
       </Link>
     </div>
   );

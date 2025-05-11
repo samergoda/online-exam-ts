@@ -1,4 +1,5 @@
-import { useQuery } from "@tanstack/react-query";
+import handleSubmitExam from "@/lib/actions/exams/submit-exam";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 export function useQuestions(examId: string, enabled: boolean) {
   const { data, error, isLoading } = useQuery({
@@ -12,12 +13,17 @@ export function useQuestions(examId: string, enabled: boolean) {
         throw new Error("Failed to fetch cart");
       }
 
-      console.log("response", data); // ✅ Now logs the actual JSON data
-
       return data;
     },
     enabled,
   });
 
   return { data, error, isLoading };
+}
+
+export function useSubmitExam() {
+  const submitExam = useMutation({
+    mutationFn: async (selectedAnswers: object) => handleSubmitExam(selectedAnswers),
+  });
+  return { submitExam };
 }

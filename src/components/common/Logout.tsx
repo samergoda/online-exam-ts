@@ -3,9 +3,10 @@
 import { useRouter } from "next/navigation";
 import { useSession, signOut } from "next-auth/react";
 import { useState } from "react";
+import { logoutServerAction } from "@/lib/actions/auth/logout.action";
 
 // Import the server-side logout handler
-import { logoutServerAction } from "@/_lib/actions/action";
+// import { logoutServerAction } from "@/_lib/actions/action";
 
 export default function Logout() {
   const { status } = useSession();
@@ -25,8 +26,8 @@ export default function Logout() {
     try {
       const result = await logoutServerAction(); // Call the server-side action
 
-      if (!result.success) {
-        throw new Error(result.message || "Logout failed.");
+      if (result && !result?.success) {
+        throw new Error("Logout failed");
       }
 
       await signOut({ callbackUrl: "/auth/login" });

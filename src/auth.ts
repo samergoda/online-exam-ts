@@ -15,7 +15,6 @@ export const OPTIONS: NextAuthOptions = {
   },
   callbacks: {
     async jwt({ token, user }) {
-      // console.log(token, user);
       if (user) {
         token.user = user.user; // Ensure user object includes token
         token.token = user.token; // Store access token separately

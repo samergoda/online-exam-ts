@@ -35,7 +35,6 @@ export default function DisplayResult({
             ...prev,
             showResult: true,
           }));
-          console.log("worked");
         }}>
         Show result
       </button>

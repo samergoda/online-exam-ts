@@ -17,7 +17,7 @@ export default async function Home(): Promise<JSX.Element> {
   // console.log("data", user);
   return (
     <>
-      <div className="w-full gap-8 bg-white p-3 flex mb-5 rounded-2xl">
+      <div className="w-full gap-8 bg-white p-3 flex mb-5 rounded-2xl px-5">
         <div className="image-container">
           <Image src={user.image || Frame} alt="image" priority />
         </div>

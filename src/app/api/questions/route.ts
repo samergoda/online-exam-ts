@@ -7,7 +7,7 @@ export async function GET(req: NextRequest) {
   if (!token) {
     return NextResponse.json({ error: "Unauthorized route handler" }, { status: 401 });
   }
-  // console.log("token.token", token.token);
+
   try {
     const response = await fetch(process.env.API + `/questions?exam=${req.nextUrl.searchParams.get("exam")}`, {
       headers: { token: token.token },

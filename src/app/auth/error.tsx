@@ -1,5 +1,5 @@
 "use client";
-const ErrorPage = (error) => {
+const ErrorPage = (error: { error: Error }) => {
   console.log("error", error);
   return (
     <div className="error-page">

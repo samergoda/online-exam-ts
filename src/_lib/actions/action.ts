@@ -149,7 +149,7 @@ export async function getCategoriesServer(pageNumber: number): Promise<SubjectRe
   }
 }
 
-export async function logoutServerAction(): Promise<{ success: boolean; message?: string }> {
+export async function logoutServerAction() {
   const token = cookies().get(SESSION_TOKEN)?.value;
 
   // console.log('token token token token',token);
@@ -172,8 +172,8 @@ export async function logoutServerAction(): Promise<{ success: boolean; message?
     }
 
     return { success: true };
-  } catch (err: ErrorMessage) {
-    console.error("Server action logout error:", error.message);
+  } catch (error) {
+    console.error("Server action logout error:", error);
     // return { success: false, message: error.message };
   }
 }

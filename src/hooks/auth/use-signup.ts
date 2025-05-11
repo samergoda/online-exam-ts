@@ -1,6 +1,8 @@
 // import { registerAction } from "@/lib/actions/auth/register.action";
 // import { RegisterFields } from "@/lib/types/auth";
-import { handleSignup } from "@/src/_lib/actions/action";
+// import { handleSignup } from "@/src/_lib/actions/action";
+
+import { handleSignup } from "@/lib/actions/auth/signup.action";
 import { useMutation } from "@tanstack/react-query";
 
 export default function useRegister() {

@@ -14,14 +14,7 @@ interface ExamCardProps {
   title: string;
   numberOfQuestions: number;
   duration: number;
-  id: number;
-}
-
-interface ExamCardProps {
-  title: string;
-  numberOfQuestions: number;
-  duration: number;
-  id: number;
+  id: string;
 }
 
 interface ExamState {

@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 
-export function useQuestions(examId: number, enabled: boolean) {
+export function useQuestions(examId: string, enabled: boolean) {
   const { data, error, isLoading } = useQuery({
     queryKey: ["questions", examId],
     queryFn: async () => {

@@ -1,4 +1,4 @@
-export default function ShowWronfAnswers({
+export default function ShowWrongAnswers({
   wrongQ,
   index,
   examState,
@@ -52,7 +52,6 @@ export default function ShowWronfAnswers({
               </div>
             );
           }
-          return null;
         })}
       </div>
     </>

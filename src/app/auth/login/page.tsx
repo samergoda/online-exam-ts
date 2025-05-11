@@ -4,7 +4,7 @@ import Button from "@/components/common/Button";
 import Input from "@/components/common/Input";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 
@@ -16,7 +16,7 @@ type Inputs = {
 function Page() {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
-  const router = useRouter();
+  // const router = useRouter();
 
   const {
     register,

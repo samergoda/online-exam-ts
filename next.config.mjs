@@ -4,6 +4,9 @@ const nextConfig = {
   images: {
     domains: ["exam.elevateegy.com", "localhost"],
   },
+  env: {
+    NEXTAUTH_SECRET: process.env.AUTH_SECRET,
+  },
 };
 
 export default nextConfig;

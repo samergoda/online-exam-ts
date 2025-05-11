@@ -3,7 +3,7 @@
 import Input from "@/components/common/Input";
 // import Button from "@/components/common/Button";
 import { verifyResetCodeAction } from "@/lib/actions/auth/verify-code.action";
-import { useFormStatus } from "react-dom";
+// import { useFormStatus } from "react-dom";
 import { useForm } from "react-hook-form";
 
 interface Inputs {
@@ -15,7 +15,7 @@ function VerifyCodePage() {
     formState: { errors },
   } = useForm<Inputs>();
 
-  const { pending } = useFormStatus();
+  // const { pending } = useFormStatus();
 
   const handleFormAction = async (formData: FormData) => {
     const result = await verifyResetCodeAction(formData);
@@ -31,9 +31,7 @@ function VerifyCodePage() {
       <form action={handleFormAction} className="flex flex-col gap-4">
         <Input type="text" name="resetCode" placeholder="Enter code" required />
         {errors.resetCode && <p className="text-red-500">{errors.resetCode.message}</p>}
-        <button type="submit" disabled={pending}>
-          {pending ? "Verifying..." : "Verify Code"}
-        </button>
+        <button type="submit">Verify Code</button>
       </form>
       <div className="text-end mt-4">
         <a href="/auth/forgetPassword" className="text-blue-500 hover:underline">

@@ -17,16 +17,33 @@ interface ExamCardProps {
   duration: number;
   id: number;
 }
+
+interface ExamCardProps {
+  title: string;
+  numberOfQuestions: number;
+  duration: number;
+  id: number;
+}
+
+interface ExamState {
+  showPopup: boolean;
+  questions: [];
+  currentQuestion: number;
+  selectedAnswers: { answers: []; time: number };
+  results: { total: string; correct: string; wrong: number } | null;
+  showResult: boolean;
+  status: string;
+}
 function ExamCard({ title, numberOfQuestions, duration, id }: ExamCardProps) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [fetchQuestions, setFetchQuestions] = useState(true);
   const { data, isLoading } = useQuestions(id, fetchQuestions);
-  const [examState, setExamState] = useState({
+  const [examState, setExamState] = useState<ExamState>({
     showPopup: false,
     questions: [],
     currentQuestion: 0,
     selectedAnswers: { answers: [], time: 0 },
-    results: null,
+    results: { total: "", correct: "", wrong: 0 },
     showResult: false,
     status: "not_started",
   });
@@ -61,11 +78,13 @@ function ExamCard({ title, numberOfQuestions, duration, id }: ExamCardProps) {
   async function handleSubmitExam() {
     // Prevent multiple submissions
     if (examState.status === "completed") return;
-
+    console.log("examState.selectedAnswers", examState.selectedAnswers);
     try {
       const response = await fetch("https://exam.elevateegy.com/api/v1/questions/check", {
         method: "POST",
         headers: {
+          token:
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZWMxMmVhNTU1NGIzMjg5MTI3M2Y5ZiIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzQ2ODg0NTUzfQ.s3VV0XWfNkooDrAKytGDq81QIRYwGdaFlm2-Ri03zis",
           "Content-Type": "application/json",
         },
         body: JSON.stringify(examState.selectedAnswers),
@@ -154,8 +173,7 @@ function ExamCard({ title, numberOfQuestions, duration, id }: ExamCardProps) {
                 ...prev,
                 showPopup: true,
               }))
-            }
-            disabled={examState.status !== "not_started"}>
+            }>
             Start
           </button>
         </div>
@@ -177,7 +195,7 @@ function ExamCard({ title, numberOfQuestions, duration, id }: ExamCardProps) {
                   <h3>your score</h3>
                   {examState.results && !examState.showResult ? (
                     <>
-                      <DisplayResult />
+                      <DisplayResult examState={examState} setExamState={setExamState} />
                     </>
                   ) : examState.results && examState.showResult ? (
                     <div className="flex gap-5">
@@ -232,7 +250,7 @@ function ExamCard({ title, numberOfQuestions, duration, id }: ExamCardProps) {
                   </div>
 
                   {/* Current Question */}
-                  <CurrentQuestion examState={examState} />
+                  <CurrentQuestion setExamState={(value) => setExamState(value as typeof examState)} examState={examState} />
                 </>
               )}
 

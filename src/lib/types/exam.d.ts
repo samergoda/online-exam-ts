@@ -13,3 +13,23 @@ declare type Exam = {
   active: boolean;
   createdAt: string;
 };
+
+declare type ExamState = {
+  questions: Array<{
+    _id: string;
+    question: string;
+    type: "single_choice" | "multiple_choice";
+    answers: Array<{
+      key: string;
+      answer: string;
+    }>;
+  }>;
+  results: { total: string; correct: string; wrong: number } | null;
+  currentQuestion: number;
+  selectedAnswers: {
+    answers: Array<{
+      questionId: string;
+      correct: string | string[];
+    }>;
+  };
+};

@@ -97,12 +97,13 @@ function ExamCard({ title, numberOfQuestions, duration, id }: ExamCardProps) {
     setExamState((prev) => ({
       ...prev,
       showPopup: true,
+      status: "in_progress",
     }));
   }
 
   useEffect(() => {
     if (!isLoading && data && fetchQuestions) {
-      console.log("data", data);
+      // console.log("data", data);
       // Update the questions in the state
       setExamState((prev) => ({
         ...prev,
@@ -128,6 +129,7 @@ function ExamCard({ title, numberOfQuestions, duration, id }: ExamCardProps) {
               setExamState((prev) => ({
                 ...prev,
                 showPopup: true,
+                status: "not_started", // Add this line
               }))
             }>
             Start
@@ -141,7 +143,7 @@ function ExamCard({ title, numberOfQuestions, duration, id }: ExamCardProps) {
           <div className="fixed inset-0 bg-black bg-opacity-50 z-40 flex items-center justify-center">
             <div className="bg-white w-[500px] relative p-4 rounded-[20px] z-50">
               {/* Instructions or Exam Flow */}
-              {examState.status === "not_started" || examState.questions.length === 0 ? (
+              {examState.status === "not_started" ? (
                 <>
                   <Instraction handleStartExam={handleStartExam} />
                 </>

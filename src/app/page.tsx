@@ -30,7 +30,7 @@ export default async function Home(): Promise<JSX.Element> {
             </div>
             <div className="output-data-icons mt-5 flex justify-between">
               <div className="mt-3 items-center gap-2 flex">
-                <span className=" rounded-[16px] shadow-[0px_18px_30px_0px_#4461f21c] p-3 border">
+                <span className=" rounded-2xl shadow-md p-3 border">
                   <FaFlag color="#4461F2" size={31} />
                 </span>
                 <div className="">
@@ -39,7 +39,7 @@ export default async function Home(): Promise<JSX.Element> {
                 </div>
               </div>
               <div className="mt-3 items-center gap-2 flex">
-                <span className=" rounded-[16px] shadow-[0px_18px_30px_0px_#4461f21c] p-3 border">
+                <span className=" rounded-2xl shadow-md p-3 border">
                   <IoIosTime color="#4461F2" size={31} />
                 </span>
                 <div className="">
@@ -48,7 +48,7 @@ export default async function Home(): Promise<JSX.Element> {
                 </div>
               </div>
               <div className="mt-3 items-center gap-2 flex">
-                <span className=" rounded-[16px] shadow-[0px_18px_30px_0px_#4461f21c] p-3 border">
+                <span className=" rounded-2xl shadow-md p-3 border">
                   <FaCheckCircle color="#4461F2" size={31} />
                 </span>
                 <div className="">

@@ -5,7 +5,7 @@ import bro from "./../../../public/images/bro.png";
 
 function layout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex flex-col lg:flex-row justify-between items-center gap-8 lg:gap-[132px] p-6 lg:p-0">
+    <div className="flex flex-col container lg:flex-row justify-between items-center gap-8 lg:gap-[132px] p-6 lg:p-0">
       <div className="bg-[#F0F4FC] rounded-r-[100px] shadow-[0_5px_100px_0_#0000001A] p-8 lg:p-[80px] w-full lg:w-auto text-center lg:text-left">
         <h1 className="font-bold text-4xl lg:text-5xl mb-4">
           Welcome to <br />

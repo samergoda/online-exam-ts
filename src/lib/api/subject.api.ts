@@ -1,21 +1,16 @@
 "use server";
-import { cookies } from "next/headers";
-import { SESSION_TOKEN } from "../constants/api.constanst";
+
+import getAuthHeader from "../utils/getToken";
 
 export async function getSubjects() {
   // console.log("pageNumber", pageNumber);
   // const session = await getServerSession(AUTH_OPTIONS);
-  const token = cookies().get(SESSION_TOKEN)?.value;
-  // console.log("token token token token", token);
-  if (!token) {
-    throw new Error("Unauthorized: No session or token found");
-  }
-
+  console.log("getAuthHeader()", await getAuthHeader());
   try {
     const response = await fetch(`https://exam.elevateegy.com/api/v1/subjects?limit=6&page=1`, {
       method: "GET",
-      headers: {
-        token,
+      headers: await {
+        ...getAuthHeader(),
       },
     });
 

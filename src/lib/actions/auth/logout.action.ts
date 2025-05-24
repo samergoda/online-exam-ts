@@ -1,20 +1,14 @@
 "use server";
-import { SESSION_TOKEN } from "@/lib/constants/api.constanst";
-import { cookies } from "next/headers";
+// import { SESSION_TOKEN } from "@/lib/constants/api.constanst";
+import getAuthHeader from "@/lib/utils/getToken";
+// import { cookies } from "next/headers";
 
 export async function logoutServerAction() {
-  const token = cookies().get(SESSION_TOKEN)?.value;
-
-  // console.log('token token token token',token);
-  if (!token) {
-    throw new Error("Unauthorized: No session or token found");
-  }
-
   try {
     const response = await fetch("https://exam.elevateegy.com/api/v1/auth/logout", {
       method: "GET",
-      headers: {
-        token: token,
+      headers: await {
+        ...getAuthHeader(),
         "Content-Type": "application/json",
       },
     });

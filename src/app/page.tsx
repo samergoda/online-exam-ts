@@ -1,6 +1,6 @@
-import Image from "next/image";
+// import Image from "next/image";
 import Subjects from "../components/common/Subjects";
-import Frame from "/public/images/Frame.png";
+// import Frame from "/public/images/Frame.png";
 import { FaFlag } from "react-icons/fa";
 import { IoIosTime } from "react-icons/io";
 import { FaCheckCircle } from "react-icons/fa";
@@ -18,9 +18,7 @@ export default async function Home(): Promise<JSX.Element> {
   return (
     <>
       <div className="w-full gap-8 bg-white p-3 flex mb-5 rounded-2xl px-5">
-        <div className="image-container">
-          <Image src={user.image || Frame} alt="image" priority />
-        </div>
+        <div className="image-container">{/* <Image src={user.image || Frame} width={100} height={0} alt="image" priority /> */}</div>
         <div className="w-[60%]">
           <h3 className="text-[#4461F2]">{user.name}</h3>
           <p className="text-[#979CA3]">{user.email}</p>

@@ -12,11 +12,12 @@ export default async function getAuthHeader() {
       token: tokenCookie || "",
       secret: process.env.NEXTAUTH_SECRET!,
     });
-    console.log("JWT JWTJWTJWTJWTJWTJWTJWTJWTJWTJWT", JWT);
+    // console.log("JWT JWTJWTJWTJWTJWTJWTJWTJWTJWTJWT", JWT);
     accessToken = JWT?.token || "";
     if (!accessToken) {
       accessToken = cookies().get("session_token")?.value || "";
     }
+    console.log("accessToken accessToken accessToken", accessToken);
   } catch (error) {
     console.log(error);
     void error;

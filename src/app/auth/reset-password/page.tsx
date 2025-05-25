@@ -81,7 +81,7 @@ function ResetPasswordPage() {
           placeholder="New re-Password"
         />
 
-        <Button>Reset Password</Button>
+        <Button disabled={false}>Reset Password</Button>
 
         {/* Display error or success message */}
         {error && <p className="text-red-500 text-sm max-w-[400px]">{error}</p>}

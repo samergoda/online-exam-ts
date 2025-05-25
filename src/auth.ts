@@ -60,7 +60,7 @@ export const OPTIONS: NextAuthOptions = {
           if (!data) {
             throw new Error("Empty response from server");
           }
-          console.log("data.token  data.token  data.token  data.token  data.token data.token", data);
+
           // Rest of your code remains the same
           cookies().set(SESSION_TOKEN, data.token, {
             httpOnly: true,

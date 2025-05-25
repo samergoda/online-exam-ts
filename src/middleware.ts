@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 const AUTH_PAGES = ["/auth/login", "/auth/signup", "/auth/forget-password", "/auth/verify-code", "/auth/reset-password"];
 
 export default async function middleware(request: NextRequest): Promise<NextResponse> {
-  const token = request.cookies.get("next-auth.session-token");
+  const token = request.cookies.get("next-auth.session-token") || request.cookies.get("__Secure-next-auth.session-token");
   const currentPath = request.nextUrl.pathname;
 
   // Redirect authenticated users away from auth pages

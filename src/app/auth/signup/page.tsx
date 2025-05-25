@@ -148,7 +148,7 @@ function SignupPage() {
             Already have an account?
           </Link>
         </div>
-        <Button>Sign Up</Button>
+        <Button disabled={false}>Sign Up</Button>
       </form>
     </div>
   );

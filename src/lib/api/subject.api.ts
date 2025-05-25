@@ -5,12 +5,15 @@ import getAuthHeader from "../utils/getToken";
 export async function getSubjects() {
   // console.log("pageNumber", pageNumber);
   // const session = await getServerSession(AUTH_OPTIONS);
-  console.log("getAuthHeader()", await getAuthHeader());
+  console.log(
+    "getAuthHeader() getAuthHeader() getAuthHeader() getAuthHeader()  getAuthHeader() getAuthHeader() getAuthHeader()",
+    await getAuthHeader()
+  );
   try {
     const response = await fetch(`https://exam.elevateegy.com/api/v1/subjects?limit=6&page=1`, {
       method: "GET",
-      headers: await {
-        ...getAuthHeader(),
+      headers: {
+        ...(await getAuthHeader()),
       },
     });
 

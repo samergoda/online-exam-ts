@@ -5,22 +5,24 @@ import { FaFlag } from "react-icons/fa";
 import { IoIosTime } from "react-icons/io";
 import { FaCheckCircle } from "react-icons/fa";
 import { getServerSession } from "next-auth";
+import { OPTIONS } from "@/auth";
 
 export default async function Home(): Promise<JSX.Element> {
-  const session = await getServerSession();
+  const session = await getServerSession(OPTIONS);
+  console.log(session);
 
   if (!session || !session.user) {
     throw new Error("Authentication required");
   }
 
   const { user } = session;
-  // console.log("data", user);
+  console.log("data user user user user user user ", user);
   return (
     <>
       <div className="w-full gap-8 bg-white p-3 flex mb-5 rounded-2xl px-5">
         <div className="image-container">{/* <Image src={user.image || Frame} width={100} height={0} alt="image" priority /> */}</div>
         <div className="w-[60%]">
-          <h3 className="text-[#4461F2]">{user.name}</h3>
+          <h3 className="text-[#4461F2]">{user.firstName}</h3>
           <p className="text-[#979CA3]">{user.email}</p>
           <div className="">
             <div className="w-full mt-3 bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">

@@ -22,7 +22,9 @@ export const OPTIONS: NextAuthOptions = {
       return token;
     },
     async session({ session, token }) {
+      // console.log(session, token);
       session.user = token.user; // Attach user data to session
+      console.log("session", session);
       return session;
     },
   },

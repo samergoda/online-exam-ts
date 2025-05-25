@@ -29,7 +29,20 @@ declare module "next-auth" {
    */
 
   // eslint-disable-next-line @typescript-eslint/no-empty-object-type
-  interface Session extends Omit<User, "token"> {}
+  interface Session extends Omit<User, "token"> {
+    user: {
+      _id: string;
+      firstName: string;
+      lastName: string;
+      email: string;
+      gender: string;
+      phone: string;
+      photo: string | null;
+      role: string;
+      wishlist: string[];
+      addresses: string[];
+    };
+  }
 }
 
 declare module "next-auth/jwt" {

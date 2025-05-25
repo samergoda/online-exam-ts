@@ -1,14 +1,13 @@
 "use server";
 import "server-only";
-import getToken from "../utils/getToken";
+import getAuthHeader from "../utils/getToken";
 
 // Fetch questions when starting the exam
 export default async function getQuestionsById(id: string) {
-  const token = await getToken();
   try {
     const response = await fetch(`https://exam.elevateegy.com/api/v1/questions?exam=${id}`, {
       method: "GET",
-      headers: { token },
+      headers: { ...(await getAuthHeader()) },
     });
 
     if (!response.ok) {

@@ -58,7 +58,7 @@ function ForgotPasswordPage() {
         />
         <p className="text-red-400 text-sm">{errors.email?.message}</p>
         {error && <p className="text-red-400 text-sm">{error}</p>}
-        <Button>Recover Password</Button>
+        <Button disabled={false}>Recover Password</Button>
       </form>
       <div className="text-end mt-4">
         <Link href="/auth/signin" className="text-blue-500 hover:underline">

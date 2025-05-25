@@ -22,8 +22,24 @@ export const OPTIONS: NextAuthOptions = {
       return token;
     },
     async session({ session, token }) {
-      // console.log(session, token);
-      session.user = token.user; // Attach user data to session
+      console.log(token);
+      if (token.user) {
+        session.user = token.user; // Attach user data to session
+      } else {
+        session.user = {
+          _id: token.sub || "",
+          firstName: token.name || "",
+          lastName: "",
+          email: token.email || "",
+          gender: "",
+          phone: "",
+          photo: null,
+          role: "",
+          wishlist: [],
+          addresses: [],
+        };
+        // session.user.id = token.jti;
+      }
       console.log("session", session);
       return session;
     },
